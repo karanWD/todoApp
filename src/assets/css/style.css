@@ -39,6 +39,9 @@
 .task-lists li {
     border-bottom: 1px solid #eee;
 }
+.task-lists li:last-child {
+    border-bottom: none;
+}
 .task-lists li input{
     padding: 5px;
     border:1px solid #ddd;
@@ -55,4 +58,7 @@
 .done-text{
     color:cornflowerblue;
     font-weight: bold;
+}
+.cursor-pointer{
+    cursor: pointer;
 }

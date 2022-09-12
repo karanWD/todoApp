@@ -2,6 +2,7 @@ import React, {createContext, useState} from "react"
 import { v4 as uuid } from 'uuid';
 
 export const TodoContext = createContext()
+
 const TodoContextProvider = ({children}) => {
     const [tasks, setTasks] = useState([])
 
@@ -22,7 +23,7 @@ const TodoContextProvider = ({children}) => {
         setTasks([...tasks])
     }
     const updateHandler = (id,value)=>{
-        tasks.filter(item=>item.id===id)[0].data = value
+        tasks.filter(item=>item.id===id)[0].text = value
         setTasks(tasks)
     }
     const deleteHandler = (event,id)=>{
