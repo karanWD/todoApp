@@ -2,7 +2,6 @@ import React,{useState} from "react"
 import Button from "./Button";
 
 const Input = ({title,addHandler}) => {
-
     const [value , setValue] = useState(``)
 
     return (

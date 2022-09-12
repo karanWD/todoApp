@@ -4,34 +4,39 @@ import Input from "./Input";
 import {v4 as uuidv4} from "uuid"
 
 const TodoApp = () => {
-    const [tasks, setTasks] = useState([])
+    const [tasks, setTasks] = useState(localStorage.getItem("tasks")?JSON.parse(localStorage.getItem("tasks")):[])
     const addHandler = (value) => {
         if (value.length > 0) {
             const item = {
                 id: uuidv4(),
                 text: value,
+                checked:false
             }
             setTasks([...tasks, item])
+            localStorage.setItem("tasks",JSON.stringify([...tasks,item]))
         }
     }
     const checkHandler = (event, id) => {
         event.stopPropagation()
-        tasks.filter(item => item.id === id)[0].checked = !tasks.filter(item => item.id === id)[0].checked
+        const selectedTask =  tasks.find(item => item.id === id)
+        selectedTask.checked = !selectedTask.checked
         setTasks([...tasks])
+        localStorage.setItem("tasks",JSON.stringify([...tasks]))
     }
     const updateHandler = (id, value) => {
-        tasks.filter(item => item.id === id)[0].text = value
-        console.table(id, value, tasks)
-        setTasks(tasks)
+        tasks.find(item => item.id === id).text = value
+        setTasks([...tasks])
+        localStorage.setItem("tasks",JSON.stringify([...tasks]))
     }
     const deleteHandler = (event, id) => {
         event.stopPropagation()
         const deleted = tasks.filter(item => item.id !== id)
         setTasks(deleted)
+        localStorage.setItem("tasks",JSON.stringify(deleted))
+
     }
 
     return (
-
         <section className={`col-12 pt-5 container d-flex flex-wrap col-lg-5 mx-auto justify-content-center align-items-center`}>
             <Input
                 addHandler={addHandler}

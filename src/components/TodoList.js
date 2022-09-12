@@ -1,12 +1,11 @@
 import React, {useState} from "react"
 
-const TodoList = ({tasks,checkHandler,updateHandler,deleteHandler}) => {
+const TodoList = ({tasks, checkHandler, updateHandler, deleteHandler}) => {
     const [editable, setEditable] = useState(null)
     const [updatedValue, setUpdatedValue] = useState(null)
     const editHandler = (event, id) => {
         event.stopPropagation()
         setEditable(id)
-
     }
     const closeEditHandler = (event) => {
         event.stopPropagation()
@@ -24,44 +23,41 @@ const TodoList = ({tasks,checkHandler,updateHandler,deleteHandler}) => {
                             {
                                 editable === item.id ?
                                     <div className={`d-flex justify-content-between align-items-center p-3 `}>
-                                        <input type="text" value={updatedValue ? updatedValue : item.text} onChange={(e) => setUpdatedValue(e.target.value)}/>
-                                        <span
-                                            className={`text-primary`}
-                                            onClick={
-                                                async () => {
-                                                    await updateHandler(item.id, updatedValue)
-                                                    await setEditable(null)
-                                                     setUpdatedValue(null)
-                                                }
-                                            }
-                                        >save</span>
-                                        <span className={`text-secondary`} onClick={(e) => closeEditHandler(e)}>cancel</span>
+                                        <input type="text" value={updatedValue ? updatedValue : item.text}
+                                               onChange={(e) => setUpdatedValue(e.target.value)}/>
+                                        <div>
+                                            <span className={`text-primary px-2 cursor-pointer`} onClick={async () => {
+                                                await updateHandler(item.id, updatedValue);
+                                                await setEditable(null);
+                                                setUpdatedValue(null)
+                                            }}>save</span>
+                                            <span className={`text-secondary px-2 cursor-pointer`}
+                                                  onClick={(e) => closeEditHandler(e)}>cancel</span>
+                                        </div>
                                     </div>
                                     :
                                     <div className={`d-flex justify-content-between align-items-center p-3`}
                                          onClick={(e) => checkHandler(e, item.id)}
                                     >
-                                    <span className={`todo-text`}>
-                                        {item.text}
-                                    </span>
-                                        {
+                                     <span className={`todo-text`}>{item.text}</span>
+                                     {
                                             item.checked ?
                                                 <span className={`done-text`}>
                                                 Done
                                             </span>
                                                 :
                                                 <div>
-                                                 <span className={`text-secondary`} onClick={(e) => editHandler(e, item.id)}>
+                                                 <span className={`text-secondary cursor-pointer`}
+                                                       onClick={(e) => editHandler(e, item.id)}>
                                                     Edit
                                                  </span>
-                                                 <span className={`text-danger ps-3`}
-                                                 onClick={(e)=>deleteHandler(e,item.id)}
-                                                 >
+                                                    <span className={`text-danger ps-3 cursor-pointer`}
+                                                          onClick={(e) => deleteHandler(e, item.id)}
+                                                    >
                                                      delete
                                                  </span>
                                                 </div>
-                                        }
-
+                                     }
                                     </div>
                             }
 
